@@ -1,2 +1,0 @@
-/usr/bin/ar qc libairplay_core.a CMakeFiles/airplay_core.dir/src/discovery.cpp.o CMakeFiles/airplay_core.dir/src/rtsp_client.cpp.o CMakeFiles/airplay_core.dir/src/rtp_sender.cpp.o CMakeFiles/airplay_core.dir/src/alac_encoder.cpp.o CMakeFiles/airplay_core.dir/src/aes_crypto.cpp.o CMakeFiles/airplay_core.dir/vendor/alac/ALACEncoder.cpp.o CMakeFiles/airplay_core.dir/vendor/alac/ALACDecoder.cpp.o
-/usr/bin/ranlib libairplay_core.a

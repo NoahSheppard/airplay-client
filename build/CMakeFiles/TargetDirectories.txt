@@ -1,6 +1,0 @@
-/home/noah/airplay-client/build/CMakeFiles/airplay_core.dir
-/home/noah/airplay-client/build/CMakeFiles/airplay_sender.dir
-/home/noah/airplay-client/build/CMakeFiles/test_discovery.dir
-/home/noah/airplay-client/build/CMakeFiles/test_rtsp_client.dir
-/home/noah/airplay-client/build/CMakeFiles/edit_cache.dir
-/home/noah/airplay-client/build/CMakeFiles/rebuild_cache.dir
