@@ -26,9 +26,9 @@
 	Copyright:	(c) 2001-2011 Apple, Inc.
 */
 
-#include "aglib.h"
-#include "ALACBitUtilities.h"
-#include "ALACAudioTypes.h"
+#include "../vendor/alac/aglib.h"
+#include "../vendor/alac/ALACBitUtilities.h"
+#include "../vendor/alac/ALACAudioTypes.h"
 
 #include <math.h>
 #include <stdio.h>

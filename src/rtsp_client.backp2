@@ -1,0 +1,486 @@
+#include "../include/rtsp_client.h"
+#include "../include/other.h"
+
+#include <iostream>
+#include <string>
+
+#include <vector>
+#include <map>
+#include <cstring>
+#include <chrono>
+#include <arpa/inet.h>
+#include <ifaddrs.h>
+#include <net/if.h>
+#include <thread>
+#include <iomanip>
+#include <algorithm>
+#include <map>
+
+#include <sstream>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <openssl/rsa.h>
+#include <openssl/pem.h>
+#include <openssl/bio.h>
+#include <openssl/evp.h>
+#include <openssl/rand.h>
+
+std::map<uint8_t, std::vector<uint8_t>> records = {};
+
+
+// NOTE: Works entirely, every client* (* in theory)
+bool rtsp_options(AirPlaySession& session, bool DEBUG) {
+    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    session.control_socket = sock;
+
+    sockaddr_in addr{}; // init the socket
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(session.port);
+    if (inet_pton(AF_INET, session.host.c_str(), &addr.sin_addr) <= 0) {
+        if (DEBUG) std::cout << RED_BOLD << "[rtsp_client.cpp] Closing socket (1)" << WHITE << std::endl;
+        close(session.control_socket); // if couldn't create the socket
+        return false;
+    }
+
+    if (connect(session.control_socket, (sockaddr*)&addr, sizeof(addr)) < 0) {
+        if (DEBUG) std::cout << RED_BOLD << "[rtsp_client.cpp] Closing socket (2)" << WHITE << std::endl;
+        close(session.control_socket); // if cannot connect to host
+        return false;
+    }
+
+    uint8_t challenge_bytes[16];
+    RAND_bytes(challenge_bytes, sizeof(challenge_bytes));
+    std::string apple_challenge = base64_encode(challenge_bytes, sizeof(challenge_bytes));
+    apple_challenge.erase(std::remove(apple_challenge.begin(), apple_challenge.end(), '='), apple_challenge.end());
+
+    std::ostringstream req;
+    req << "OPTIONS rtsp://" << session.host << ":" << session.port << "/ RTSP/1.0\r\n"
+        << "CSeq: " << session.cseq << "\r\n"
+        << "User-Agent: iTunes/10.6 (Macintosh; Intel Mac OS X 10.7.3) AppleWebKit/535.18.5\r\n"
+        << "Client-Instance: 56B29BB6CB904862\r\n"
+        << "Apple-Challenge: " << apple_challenge << "\r\n"
+        << "\r\n";
+
+    std::string request = req.str();
+    if (send(session.control_socket, request.c_str(), request.size(), 0) < 0) {
+        if (DEBUG) std::cout << RED_BOLD << "[rtsp_client.cpp] Closing socket (3)" << WHITE << std::endl;
+        close(session.control_socket); // if data doesn't send
+        return false;
+    }
+
+    sockaddr_in local_addr {};
+    socklen_t len = sizeof(local_addr);
+    getsockname(session.control_socket, (sockaddr*)&local_addr, &len);
+    char local_ip[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, &local_addr.sin_addr, local_ip, sizeof(local_ip));
+
+    char buffer[4096];
+    std::string response;
+    ssize_t n; 
+
+    while ((n = recv(session.control_socket, buffer, sizeof(buffer) - 1, 0)) > 0) {
+        buffer[n] = 0;
+        response += buffer;
+        if (response.find("\r\n\r\n") != std::string::npos) break;
+    }
+
+    if (DEBUG) std::cout << YELLOW << "[rtsp_client.cpp] Response=" << response << WHITE << std::endl;
+
+    if (response.empty()) return false;
+
+    std::istringstream resp_stream(response);
+    std::string rtsp_version;
+    int status_code = 0;
+
+    resp_stream >> rtsp_version >> status_code;
+
+    if (status_code != 200) return false;
+
+    std::istringstream lines(response);
+    std::string line;
+    int cseq_response = -1;
+
+    while (std::getline(lines, line)) {
+        if (line.rfind("CSeq:", 0) == 0) {
+            std::string val = line.substr(5);
+            cseq_response = std::stoi(val);
+            break;
+        }
+    }
+
+    if (DEBUG) std::cout << CYAN << "[rtsp_client.cpp] (FINAL) cseq_response=" << cseq_response << WHITE << std::endl;
+    if (DEBUG) std::cout << CYAN << "[rtsp_client.cpp] (FINAL) expected=" << session.cseq << WHITE << std::endl;
+    
+    bool ok = (cseq_response == (int)session.cseq);
+    session.cseq += 1;
+    return ok;
+}
+
+// NOTE: Works only with the pi's shairport-sync instance on port 5000
+bool rtsp_announce(AirPlaySession& session, bool DEBUG) {
+    RAND_bytes(session.aes_key, 16);
+    RAND_bytes(session.aes_iv, 16);
+
+    EVP_PKEY* pkey = nullptr;
+    BIO* bio = BIO_new_mem_buf(AIRPLAY_RSA_PUBLIC_KEY, -1);
+    PEM_read_bio_PUBKEY(bio, &pkey, nullptr, nullptr);
+    BIO_free(bio);
+
+    EVP_PKEY_CTX* ctx = EVP_PKEY_CTX_new(pkey, nullptr);
+    EVP_PKEY_encrypt_init(ctx);
+    EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_OAEP_PADDING);
+
+    size_t encrypted_len = 128;
+    uint8_t encrypted_key[128];
+    EVP_PKEY_encrypt(ctx, encrypted_key, &encrypted_len, session.aes_key, 16);
+    
+    EVP_PKEY_CTX_free(ctx);
+    EVP_PKEY_free(pkey);
+
+    std::string base64_encrypted_key = base64_encode(encrypted_key, sizeof(encrypted_key));
+    base64_encrypted_key.erase(std::remove(base64_encrypted_key.begin(), base64_encrypted_key.end(), '='), base64_encrypted_key.end());
+
+    std::string base64_iv = base64_encode(session.aes_iv, 16);
+    base64_iv.erase(std::remove(base64_iv.begin(), base64_iv.end(), '='), base64_iv.end());
+
+    // Apple-Challenge because of course there is
+    uint8_t challenge_bytes[16];
+    RAND_bytes(challenge_bytes, sizeof(challenge_bytes));
+    std::string apple_challenge = base64_encode(challenge_bytes, sizeof(challenge_bytes));
+    apple_challenge.erase(std::remove(apple_challenge.begin(), apple_challenge.end(), '='), apple_challenge.end());
+
+    char local_ip[INET_ADDRSTRLEN];
+    sockaddr_in local_addr {};
+    socklen_t len = sizeof(local_addr);
+    getsockname(session.control_socket, (sockaddr*)&local_addr, &len);
+    inet_ntop(AF_INET, &local_addr.sin_addr, local_ip, sizeof(local_ip));
+
+    std::ostringstream sdp;
+    sdp << "v=0\r\n"
+        << "o=iTunes 1234 0 IN IP4 " << local_ip << "\r\n"
+        << "s=iTunes\r\n"
+        << "c=IN IP4 " << session.host << "\r\n"
+        << "t=0 0\r\n"
+        << "m=audio 0 RTP/AVP 96\r\n"
+        << "a=rtpmap:96 AppleLossless\r\n"
+        << "a=fmtp:96 352 0 16 40 10 14 2 255 0 0 44100\r\n"
+        << "a=rsaaeskey:" << base64_encrypted_key << "\r\n"
+        << "a=aesiv:" << base64_iv << "\r\n";
+
+    std::string sdp_body = sdp.str();
+
+    // now build headers to get content length
+    std::ostringstream req;
+    req << "ANNOUNCE rtsp://" << session.host << ":" << session.port << "/" << session.session_id << " RTSP/1.0\r\n"
+        << "CSeq: " << session.cseq << "\r\n"
+        << "User-Agent: iTunes/10.6 (Macintosh; Intel Mac OS X 10.7.3) AppleWebKit/535.18.5\r\n"
+        << "Client-Instance: 56B29BB6CB904862\r\n"
+        << "Apple-Challenge: " << apple_challenge << "\r\n"
+        << "Content-Type: application/sdp\r\n"
+        << "Content-Length: " << sdp_body.size() << "\r\n"
+        << "\r\n"
+        << sdp_body;
+
+    std::string request = req.str();
+    if (send(session.control_socket, request.c_str(), request.size(), 0) < 0) {
+        if (DEBUG) std::cout << RED_BOLD << "[rtsp_client.cpp] Closing socket (3)" << WHITE << std::endl;
+        close(session.control_socket); // if data doesn't send
+        return false;
+    }
+
+    char buffer[4096];
+    std::string response;
+    ssize_t n; 
+
+    while ((n = recv(session.control_socket, buffer, sizeof(buffer) - 1, 0)) > 0) {
+        buffer[n] = 0;
+        response += buffer;
+        if (response.find("\r\n\r\n") != std::string::npos) break;
+    }
+
+    if (DEBUG) std::cout << YELLOW << "[rtsp_client.cpp] Response=" << response << WHITE << std::endl;
+
+    if (response.empty()) return false;
+
+    std::istringstream resp_stream(response);
+    std::string rtsp_version;
+    int status_code = 0;
+
+    resp_stream >> rtsp_version >> status_code;
+
+    if (status_code != 200) return false;
+
+    std::istringstream lines(response);
+    std::string line;
+    int cseq_response = -1;
+
+    while (std::getline(lines, line)) {
+        if (line.rfind("CSeq:", 0) == 0) {
+            std::string val = line.substr(5);
+            cseq_response = std::stoi(val);
+            break;
+        }
+    }
+
+    bool ok = (cseq_response == (int)session.cseq);
+    session.cseq += 1;
+    return ok;
+} // Mine
+
+
+// Use this for when we kick into homepod testing, for now stick with shairport-sync
+/*bool rtsp_announce(AirPlaySession& session, bool DEBUG) {
+    RAND_bytes(session.aes_key, 16);
+    RAND_bytes(session.aes_iv, 16);
+
+    EVP_PKEY* pkey = nullptr;
+    BIO* bio = BIO_new_mem_buf(AIRPLAY_RSA_PUBLIC_KEY, -1);
+    PEM_read_bio_PUBKEY(bio, &pkey, nullptr, nullptr);
+    BIO_free(bio);
+
+    EVP_PKEY_CTX* ctx = EVP_PKEY_CTX_new(pkey, nullptr);
+    EVP_PKEY_encrypt_init(ctx);
+    EVP_PKEY_CTX_set_rsa_padding(ctx, RSA_PKCS1_OAEP_PADDING);
+
+    size_t encrypted_len = 128;
+    uint8_t encrypted_key[128];
+    EVP_PKEY_encrypt(ctx, encrypted_key, &encrypted_len, session.aes_key, 16);
+    
+
+    EVP_PKEY_CTX_free(ctx);
+    EVP_PKEY_free(pkey);
+
+    std::string base64_encrypted_key = base64_encode(encrypted_key, sizeof(encrypted_key));
+    base64_encrypted_key.erase(std::remove(base64_encrypted_key.begin(), base64_encrypted_key.end(), '='), base64_encrypted_key.end());
+
+    std::string base64_iv = base64_encode(session.aes_iv, 16);
+    base64_iv.erase(std::remove(base64_iv.begin(), base64_iv.end(), '='), base64_iv.end());
+
+    // Apple-Challenge because of course there is
+    uint8_t challenge_bytes[16];
+    RAND_bytes(challenge_bytes, sizeof(challenge_bytes));
+    std::string apple_challenge = base64_encode(challenge_bytes, sizeof(challenge_bytes));
+    apple_challenge.erase(std::remove(apple_challenge.begin(), apple_challenge.end(), '='), apple_challenge.end());
+
+    char local_ip[INET_ADDRSTRLEN];
+    sockaddr_in local_addr {};
+    socklen_t len = sizeof(local_addr);
+    getsockname(session.control_socket, (sockaddr*)&local_addr, &len);
+    inet_ntop(AF_INET, &local_addr.sin_addr, local_ip, sizeof(local_ip));
+
+    std::ostringstream sdp;
+    sdp << "v=0\r\n"
+        << "o=iTunes 1234 0 IN IP4 " << local_ip << "\r\n"
+        << "s=iTunes\r\n"
+        << "c=IN IP4 " << session.host << "\r\n"
+        << "t=0 0\r\n"
+        << "m=audio 0 RTP/AVP 96\r\n"
+        << "a=rtpmap:96 AppleLossless\r\n"
+        << "a=fmtp:96 352 0 16 40 10 14 2 255 0 0 44100\r\n"
+        << "a=rsaaeskey:" << base64_encrypted_key << "\r\n"
+        << "a=aesiv:" << base64_iv << "\r\n";
+
+    std::string sdp_body = sdp.str();
+
+    // now build headers to get content length
+    std::ostringstream req;
+    req << "ANNOUNCE rtsp://" << session.host << ":" << session.port << "/" << session.session_id << " RTSP/1.0\r\n"
+        << "CSeq: " << session.cseq << "\r\n"
+        << "User-Agent: iTunes/10.6 (Macintosh; Intel Mac OS X 10.7.3) AppleWebKit/535.18.5\r\n"
+        << "Client-Instance: 56B29BB6CB904862\r\n"
+        << "Apple-Challenge: " << apple_challenge << "\r\n"
+        << "Content-Type: application/sdp\r\n"
+        << "Content-Length: " << sdp_body.size() << "\r\n"
+        << "\r\n"
+        << sdp_body;
+
+    std::string request = req.str();
+    if (send(session.control_socket, request.c_str(), request.size(), 0) < 0) {
+        if (DEBUG) std::cout << RED_BOLD << "[rtsp_client.cpp] Closing socket (3)" << WHITE << std::endl;
+        close(session.control_socket); // if data doesn't send
+        return false;
+    }
+
+    char buffer[4096];
+    std::string response;
+    ssize_t n; 
+
+    while ((n = recv(session.control_socket, buffer, sizeof(buffer) - 1, 0)) > 0) {
+        buffer[n] = 0;
+        response += buffer;
+        if (response.find("\r\n\r\n") != std::string::npos) break;
+    }
+
+    if (DEBUG) std::cout << YELLOW << "[rtsp_client.cpp] Response=" << response << WHITE << std::endl;
+
+    if (response.empty()) return false;
+
+    std::istringstream resp_stream(response);
+    std::string rtsp_version;
+    int status_code = 0;
+
+    resp_stream >> rtsp_version >> status_code;
+
+    if (status_code != 200) return false;
+
+    std::istringstream lines(response);
+    std::string line;
+    int cseq_response = -1;
+
+    while (std::getline(lines, line)) {
+        if (line.rfind("CSeq:", 0) == 0) {
+            std::string val = line.substr(5);
+            cseq_response = std::stoi(val);
+            break;
+        }
+    }
+
+    bool ok = (cseq_response == (int)session.cseq);
+    session.cseq += 1;
+    return ok;
+}*/ // I don't know what this is again 
+
+bool rtsp_pair_setup(AirPlaySession& session, bool DEBUG) {
+    int sock = socket(AF_INET, SOCK_STREAM, 0);
+    session.control_socket = sock;
+
+    sockaddr_in addr{}; // init the socket
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(session.port);
+    if (inet_pton(AF_INET, session.host.c_str(), &addr.sin_addr) <= 0) {
+        if (DEBUG) std::cout << RED_BOLD << "[rtsp_client.cpp] Closing socket (1)" << WHITE << std::endl;
+        close(session.control_socket); // if couldn't create the socket
+        return false;
+    }
+
+    if (connect(session.control_socket, (sockaddr*)&addr, sizeof(addr)) < 0) {
+        if (DEBUG) std::cout << RED_BOLD << "[rtsp_client.cpp] Closing socket (2)" << WHITE << std::endl;
+        close(session.control_socket); // if cannot connect to host
+        return false;
+    }
+
+    // 1. Initialize our TLV8 builder
+    TLV8 pair_setup_m1;
+
+    // 2. State = 1
+    pair_setup_m1.add(kTLVType_State, {0x01});
+
+    // 3. Method = 4 (Transient Pairing for pw=false devices)
+    pair_setup_m1.add(kTLVType_Method, {0x04});
+
+    // 4. Encode to raw bytes
+    /*std::vector<uint8_t> body = pair_setup_m1.encode();
+    std::cout << YELLOW << "[rtsp_client.cpp] Body=";
+    for (unsigned char c : body) {
+        std::cout << static_cast<int>(c) << " "; 
+    } 
+    std::cout << WHITE << std::endl;*/
+
+    // 5. Build the HTTP POST Request
+    // The exact 16-byte FairPlay SAP v2.5 M1 Payload
+    std::vector<uint8_t> body = {
+        0x46, 0x50, 0x4C, 0x59, // "FPLY"
+        0x02, 0x01, 0x01, 0x00, 
+        0x00, 0x00, 0x00, 0x00, 
+        0x00, 0x00, 0x00, 0x00
+    };
+
+    // Generate a pseudo-random Session ID and Device ID
+    std::string session_id = "00000000-1111-2222-3333-444455556666"; // Usually a UUID
+    std::string device_id = "0x001122334455"; // Spoofed MAC address of the client
+
+    // Build the HTTP POST Request mimicking Windows iTunes
+    std::ostringstream req;
+    req << "POST /fp-setup HTTP/1.1\r\n"
+        << "Host: " << session.host << ":" << session.port << "\r\n"
+        << "User-Agent: iTunes/12.12.9 (Windows; Microsoft Windows 10 x64) AppleWebKit/7614.1000.18.22\r\n"
+        << "Content-Type: application/octet-stream\r\n"
+        << "Content-Length: " << body.size() << "\r\n"
+        << "X-Apple-Session-ID: " << session_id << "\r\n"
+        << "X-Apple-Device-ID: " << device_id << "\r\n"
+        << "\r\n";
+
+    std::string request_headers = req.str();
+    std::vector<uint8_t> full_request(request_headers.begin(), request_headers.end());
+    full_request.insert(full_request.end(), body.begin(), body.end());
+
+    if (send(session.control_socket, full_request.data(), full_request.size(), 0) < 0) {
+        std::cerr << "[pair-setup] Failed to send M1 request." << std::endl;
+        return false;
+    }
+
+    // 7. Receive the M2 response robustly
+    char buffer[4096];
+    std::string response_data;
+    ssize_t bytes_read;
+    
+    int expected_body_length = -1;
+    size_t header_end_pos = std::string::npos;
+
+    while ((bytes_read = recv(session.control_socket, buffer, sizeof(buffer), 0)) > 0) {
+        response_data.append(buffer, bytes_read);
+        
+        // 1. Look for the end of the HTTP headers if we haven't found it yet
+        if (header_end_pos == std::string::npos) {
+            header_end_pos = response_data.find("\r\n\r\n");
+            
+            if (header_end_pos != std::string::npos) {
+                // We have all the headers! Let's find the Content-Length.
+                std::string headers = response_data.substr(0, header_end_pos);
+                size_t cl_pos = headers.find("Content-Length: ");
+                
+                if (cl_pos != std::string::npos) {
+                    size_t cl_end = headers.find("\r\n", cl_pos);
+                    std::string cl_str = headers.substr(cl_pos + 16, cl_end - (cl_pos + 16));
+                    expected_body_length = std::stoi(cl_str);
+                } else {
+                    // If there's no Content-Length, assume 0 (e.g., 404 Not Found)
+                    expected_body_length = 0; 
+                }
+            }
+        }
+
+        // 2. If we know the headers have ended, check if we have the full body
+        if (header_end_pos != std::string::npos && expected_body_length >= 0) {
+            size_t total_expected_size = header_end_pos + 4 + expected_body_length;
+            if (response_data.size() >= total_expected_size) {
+                break; // We have everything! Escape the blocking loop.
+            }
+        }
+    }
+
+    // 8. Separate the HTTP Headers from the TLV8 Body
+    if (header_end_pos == std::string::npos) {
+        std::cerr << "[pair-setup] Invalid HTTP response (no headers found)" << std::endl;
+        return false;
+    }
+
+    std::string headers = response_data.substr(0, header_end_pos);
+    std::vector<uint8_t> m2_body;
+    
+    if (expected_body_length > 0) {
+        m2_body.assign(response_data.begin() + header_end_pos + 4, response_data.end());
+    }
+
+    if (DEBUG) std::cout << "\n[pair-setup] Received Response Headers:\n" << headers << std::endl;
+    if (DEBUG) std::cout << "[pair-setup] M2 Body length: " << m2_body.size() << " bytes" << std::endl;
+
+    return true;
+
+}
+
+std::string base64_encode(const uint8_t* data, size_t len) {
+    BIO* b64 = BIO_new(BIO_f_base64());
+    BIO* mem = BIO_new(BIO_s_mem());
+    BIO_push(b64, mem);
+    BIO_set_flags(b64, BIO_FLAGS_BASE64_NO_NL);
+    BIO_write(b64, data, len);
+    BIO_flush(b64);
+
+    char* out;
+    size_t out_len = BIO_get_mem_data(mem, &out);
+    std::string result(out, out_len);
+
+    BIO_free_all(b64);
+    return result;
+}

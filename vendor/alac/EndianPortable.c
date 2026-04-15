@@ -25,7 +25,7 @@
 //
 
 #include <stdio.h>
-#include "EndianPortable.h"
+#include "../vendor/alac/EndianPortable.h"
 
 #define BSWAP16(x) (((x << 8) | ((x >> 8) & 0x00ff)))
 #define BSWAP32(x) (((x << 24) | ((x << 8) & 0x00ff0000) | ((x >> 8) & 0x0000ff00) | ((x >> 24) & 0x000000ff)))
@@ -38,7 +38,13 @@
 #define TARGET_RT_LITTLE_ENDIAN 1
 #elif defined(__x86_64__)
 #define TARGET_RT_LITTLE_ENDIAN 1
-#elif defined (TARGET_OS_WIN32)
+#elif defined (TARGET_OS_WIN32) || defined(_WIN32)
+#define TARGET_RT_LITTLE_ENDIAN 1
+#elif defined (__arm__) || defined(__aarch64__)
+#define TARGET_RT_LITTLE_ENDIAN 1
+#elif !defined(__BYTE_ORDER__)
+#warning no __BYTE_ORDER__ defined, assuming BIG ENDIAN
+#elif __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
 #define TARGET_RT_LITTLE_ENDIAN 1
 #endif
 

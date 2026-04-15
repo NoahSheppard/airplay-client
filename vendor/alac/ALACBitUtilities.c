@@ -25,7 +25,7 @@
 =============================================================================*/
 
 #include <stdio.h>
-#include "ALACBitUtilities.h"
+#include "../vendor/alac/ALACBitUtilities.h"
 
 // BitBufferInit
 //

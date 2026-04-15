@@ -26,7 +26,7 @@
 	Copyright:	(c) 2001-2011 Apple, Inc.
 */
 
-#include "dplib.h"
+#include "../vendor/alac/dplib.h"
 #include <string.h>
 
 #if __GNUC__

@@ -1,0 +1,20 @@
+#include <iostream>
+#include "../include/rtsp_client.h"
+#include "../include/other.h"
+
+int main(int argc, char* argv[]) {
+    if (argc < 3) {
+        std::cout << RED_BOLD << "Usage: ./test_rstp_client ip port." << WHITE << std::endl;
+        return 0;
+    }
+    
+    AirPlaySession session;
+    session.host = argv[1];
+    session.port = std::stoi(argv[2]);
+    session.cseq = 1;
+    
+    std::cout << BLUE << "[test_rtsp_client.cpp] Commencing Pair-Setup request... " << WHITE << std::endl;
+    bool rtsp_pair_setup_ok = rtsp_pair_setup(session, true);
+    std::cout << (rtsp_pair_setup_ok ? GREEN_BOLD : RED) << "[test_rtsp_client.cpp] Pair-Setup: " << rtsp_pair_setup_ok << WHITE << std::endl;
+    return 0;
+}

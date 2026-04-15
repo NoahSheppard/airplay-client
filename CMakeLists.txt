@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-project(airplay_sender CXX)
+project(airplay_sender C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -11,6 +11,7 @@ add_library(airplay_core
     src/rtp_sender.cpp
     src/alac_encoder.cpp
     src/aes_crypto.cpp
+    src/wav_reader.cpp
     vendor/alac/ALACEncoder.cpp
     vendor/alac/ALACDecoder.cpp
     vendor/alac/ag_dec.c

@@ -26,8 +26,8 @@
 	Copyright:	(c) 2004-2011 Apple, Inc.
 */
 
-#include "matrixlib.h"
-#include "ALACAudioTypes.h"
+#include "../vendor/alac/matrixlib.h"
+#include "../vendor/alac/ALACAudioTypes.h"
 
 // up to 24-bit "offset" macros for the individual bytes of a 20/24-bit word
 #if TARGET_RT_BIG_ENDIAN

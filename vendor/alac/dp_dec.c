@@ -27,7 +27,7 @@
 */
 
 
-#include "dplib.h"
+#include "../vendor/alac/dplib.h"
 #include <string.h>
 
 #if __GNUC__

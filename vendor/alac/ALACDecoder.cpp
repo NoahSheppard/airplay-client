@@ -25,14 +25,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "ALACDecoder.h"
+#include "../vendor/alac/ALACDecoder.h"
 
-#include "dplib.h"
-#include "aglib.h"
-#include "matrixlib.h"
+#include "../vendor/alac/dplib.h"
+#include "../vendor/alac/aglib.h"
+#include "../vendor/alac/matrixlib.h"
 
-#include "ALACBitUtilities.h"
-#include "EndianPortable.h"
+#include "../vendor/alac/ALACBitUtilities.h"
+#include "../vendor/alac/EndianPortable.h"
 
 // constants/data
 const uint32_t kMaxBitDepth = 32;			// max allowed bit depth is 32

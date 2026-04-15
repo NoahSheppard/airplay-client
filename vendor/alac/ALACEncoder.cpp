@@ -30,15 +30,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "ALACEncoder.h"
+#include "../vendor/alac/ALACEncoder.h"
 
-#include "aglib.h"
-#include "dplib.h"
-#include "matrixlib.h"
+#include "../vendor/alac/aglib.h"
+#include "../vendor/alac/dplib.h"
+#include "../vendor/alac/matrixlib.h"
 
-#include "ALACBitUtilities.h"
-#include "ALACAudioTypes.h"
-#include "EndianPortable.h"
+#include "../vendor/alac/ALACBitUtilities.h"
+#include "../vendor/alac/ALACAudioTypes.h"
+#include "../vendor/alac/EndianPortable.h"
 
 // Note: in C you can't typecast to a 2-dimensional array pointer but that's what we need when
 // picking which coefs to use so we declare this typedef b/c we *can* typecast to this type

@@ -26,7 +26,7 @@
 
 #include <stdint.h>
 
-#include "ALACAudioTypes.h"
+#include "../vendor/alac/ALACAudioTypes.h"
 
 
 struct BitBuffer;
