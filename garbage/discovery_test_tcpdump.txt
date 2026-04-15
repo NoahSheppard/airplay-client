@@ -1,0 +1,58 @@
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on eth5, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+
+14:37:06.989738 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0 [2q] [6n] ANY (QM)? iPhone X._rdlink._tcp.local. ANY (QM)? iPhone-X.local. (208)
+14:37:06.990130 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0 [2q] [6n] ANY (QM)? iPhone X._rdlink._tcp.local. ANY (QM)? iPhone-X.local. (208)
+14:37:07.197174 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0 [2q] [6n] ANY (QM)? iPhone X._rdlink._tcp.local. ANY (QM)? iPhone-X.local. (208)
+14:37:07.197174 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0*- [0q] 5/0/5 (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local. (465)
+14:37:07.197982 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0 [2q] [6n] ANY (QM)? iPhone X._rdlink._tcp.local. ANY (QM)? iPhone-X.local. (208)
+14:37:07.197982 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0*- [0q] 5/0/5 (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local. (465)
+14:37:08.217145 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0*- [0q] 10/0/2 (Cache flush) TXT "rpBA=33:A4:ED:F4:DB:2C" "rpVr=440.10" "rpAD=f26bda77827b", PTR _rdlink._tcp.local., PTR iPhone X._rdlink._tcp.local., TXT "model=D22AP", (Cache flush) SRV iPhone-X.local.:49165 0 0, (Cache flush) AAAA fe80::18ac:d6fb:288d:938a, (Cache flush) AAAA fd4e:17d4:cc1b:1:1800:d111:8b9f:1e28, (Cache flush) AAAA 2401:d002:d06:7e00:85:7adb:d014:48e5, (Cache flush) A 192.168.4.20, (Cache flush) AAAA fd1b:aefc:3cf7:47d1:ccf:558d:c6a1:8803 (399)
+14:37:08.217552 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0*- [0q] 10/0/2 (Cache flush) TXT "rpBA=33:A4:ED:F4:DB:2C" "rpVr=440.10" "rpAD=f26bda77827b", PTR _rdlink._tcp.local., PTR iPhone X._rdlink._tcp.local., TXT "model=D22AP", (Cache flush) SRV iPhone-X.local.:49165 0 0, (Cache flush) AAAA fe80::18ac:d6fb:288d:938a, (Cache flush) AAAA fd4e:17d4:cc1b:1:1800:d111:8b9f:1e28, (Cache flush) AAAA 2401:d002:d06:7e00:85:7adb:d014:48e5, (Cache flush) A 192.168.4.20, (Cache flush) AAAA fd1b:aefc:3cf7:47d1:ccf:558d:c6a1:8803 (399)
+14:37:09.241597 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0*- [0q] 15/0/7 (Cache flush) TXT "rpBA=33:A4:ED:F4:DB:2C" "rpVr=440.10" "rpAD=f26bda77827b", PTR _rdlink._tcp.local., PTR iPhone X._rdlink._tcp.local., TXT "model=D22AP", (Cache flush) SRV iPhone-X.local.:49165 0 0, (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) AAAA fe80::18ac:d6fb:288d:938a, (Cache flush) AAAA fd4e:17d4:cc1b:1:1800:d111:8b9f:1e28, (Cache flush) AAAA 2401:d002:d06:7e00:85:7adb:d014:48e5, (Cache flush) A 192.168.4.20, (Cache flush) AAAA fd1b:aefc:3cf7:47d1:ccf:558d:c6a1:8803 (838)
+14:37:09.242021 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0*- [0q] 15/0/7 (Cache flush) TXT "rpBA=33:A4:ED:F4:DB:2C" "rpVr=440.10" "rpAD=f26bda77827b", PTR _rdlink._tcp.local., PTR iPhone X._rdlink._tcp.local., TXT "model=D22AP", (Cache flush) SRV iPhone-X.local.:49165 0 0, (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) PTR iPhone-X.local., (Cache flush) AAAA fe80::18ac:d6fb:288d:938a, (Cache flush) AAAA fd4e:17d4:cc1b:1:1800:d111:8b9f:1e28, (Cache flush) AAAA 2401:d002:d06:7e00:85:7adb:d014:48e5, (Cache flush) A 192.168.4.20, (Cache flush) AAAA fd1b:aefc:3cf7:47d1:ccf:558d:c6a1:8803 (838)
+14:37:10.264577 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0*- [0q] 2/0/0 PTR iPhone X._rdlink._tcp.local., TXT "model=D22AP" (99)
+14:37:10.265058 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0*- [0q] 2/0/0 PTR iPhone X._rdlink._tcp.local., TXT "model=D22AP" (99)
+14:37:07.400611 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0 [10a] [4q] PTR (QM)? _companion-link._tcp.local. PTR (QM)? _hap._tcp.local. PTR (QM)? _hap._udp.local. PTR (QM)? _sleep-proxy._udp.local. (428)
+14:37:07.401775 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0 [10a] [4q] PTR (QM)? _companion-link._tcp.local. PTR (QM)? _hap._tcp.local. PTR (QM)? _hap._udp.local. PTR (QM)? _sleep-proxy._udp.local. (428)
+14:37:07.616718 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0*- [0q] 10/0/2 (Cache flush) TXT "rpBA=33:A4:ED:F4:DB:2C" "rpVr=440.10" "rpAD=f26bda77827b", PTR _rdlink._tcp.local., PTR iPhone X._rdlink._tcp.local., TXT "model=D22AP", (Cache flush) SRV iPhone-X.local.:49165 0 0, (Cache flush) AAAA fe80::18ac:d6fb:288d:938a, (Cache flush) AAAA fd4e:17d4:cc1b:1:1800:d111:8b9f:1e28, (Cache flush) AAAA 2401:d002:d06:7e00:85:7adb:d014:48e5, (Cache flush) A 192.168.4.20, (Cache flush) AAAA fd1b:aefc:3cf7:47d1:ccf:558d:c6a1:8803 (399)
+14:37:07.618434 IP 192.168.4.20.5353 > 224.0.0.251.5353: 0*- [0q] 10/0/2 (Cache flush) TXT "rpBA=33:A4:ED:F4:DB:2C" "rpVr=440.10" "rpAD=f26bda77827b", PTR _rdlink._tcp.local., PTR iPhone X._rdlink._tcp.local., TXT "model=D22AP", (Cache flush) SRV iPhone-X.local.:49165 0 0, (Cache flush) AAAA fe80::18ac:d6fb:288d:938a, (Cache flush) AAAA fd4e:17d4:cc1b:1:1800:d111:8b9f:1e28, (Cache flush) AAAA 2401:d002:d06:7e00:85:7adb:d014:48e5, (Cache flush) A 192.168.4.20, (Cache flush) AAAA fd1b:aefc:3cf7:47d1:ccf:558d:c6a1:8803 (399)
+
+14:37:07.235719 IP 192.168.5.235.5353 > 224.0.0.251.5353: 0 PTR (QM)? _raop._tcp.local. (34)
+14:37:07.235727 IP 192.168.5.235.5353 > 224.0.0.251.5353: 0 PTR (QU)? _services._dns-sd._udp.local. (46)
+
+14:37:07.400610 IP 192.168.4.1.5353 > 224.0.0.251.5353: 0*- [0q] 3/0/0 PTR _eerogw._tcp.local., PTR _meshcop._udp.local., PTR _trel._udp.local. (110)
+14:37:07.401797 IP 192.168.4.1.5353 > 224.0.0.251.5353: 0*- [0q] 3/0/0 PTR _eerogw._tcp.local., PTR _meshcop._udp.local., PTR _trel._udp.local. (110)
+
+14:37:07.400611 IP 192.168.5.41.5353 > 224.0.0.251.5353: 0*- [0q] 2/0/1 PTR _dyson_mqtt._tcp.local., (Cache flush) A 192.168.5.41 (172)
+14:37:07.401797 IP 192.168.5.41.5353 > 224.0.0.251.5353: 0*- [0q] 2/0/1 PTR _dyson_mqtt._tcp.local., (Cache flush) A 192.168.5.41 (172)
+
+14:37:07.400611 IP 192.168.6.9.5353 > 224.0.0.251.5353: 0*- [0q] 8/0/0 PTR 9C783EB55E41@Legacy PiPod._raop._tcp.local., (Cache flush) TXT "sf=0x4" "fv=5.0-dev-143-gb5f1157c" "am=ShairportSync" "vs=105.1" "tp=TCP,UDP" "vn=65537" "md=0,1,2" "ss=16" "sr=44100" "da=true" "sv=false" "et=0,1" "ek=1" "cn=0,1" "ch=2" "txtvers=1" "pw=false", (Cache flush) SRV raspberrypi.local.:5000 0 0, (Cache flush) A 192.168.6.9, PTR _hap._tcp.local., PTR _airplay._tcp.local., PTR _raop._tcp.local., PTR _workstation._tcp.local. (396)
+14:37:07.401788 IP 192.168.6.9.5353 > 224.0.0.251.5353: 0*- [0q] 8/0/0 PTR 9C783EB55E41@Legacy PiPod._raop._tcp.local., (Cache flush) TXT "sf=0x4" "fv=5.0-dev-143-gb5f1157c" "am=ShairportSync" "vs=105.1" "tp=TCP,UDP" "vn=65537" "md=0,1,2" "ss=16" "sr=44100" "da=true" "sv=false" "et=0,1" "ek=1" "cn=0,1" "ch=2" "txtvers=1" "pw=false", (Cache flush) SRV raspberrypi.local.:5000 0 0, (Cache flush) A 192.168.6.9, PTR _hap._tcp.local., PTR _airplay._tcp.local., PTR _raop._tcp.local., PTR _workstation._tcp.local. (396)
+
+14:37:07.616718 IP 192.168.5.179.5353 > 224.0.0.251.5353: 0*- [0q] 1/0/1 PTR _spotify-connect._tcp.local. (96)
+14:37:07.618422 IP 192.168.5.179.5353 > 224.0.0.251.5353: 0*- [0q] 1/0/1 PTR _spotify-connect._tcp.local. (96)
+
+14:37:07.616719 IP 192.168.5.60.5353 > 224.0.0.251.5353: 0*- [0q] 1/0/8 PTR E202AF9DEA06@MichaelM-bM-^@M-^Ys Mac mini._raop._tcp.local. (451)
+14:37:07.618434 IP 192.168.5.60.5353 > 224.0.0.251.5353: 0*- [0q] 1/0/8 PTR E202AF9DEA06@MichaelM-bM-^@M-^Ys Mac mini._raop._tcp.local. (451)
+
+
+14:37:07.616722 IP 192.168.4.30.5353 > 224.0.0.251.5353: 0*- [0q] 1/0/9 PTR 5A45AABFC93B@Living Room._raop._tcp.local. (483)
+14:37:07.618410 IP 192.168.4.30.5353 > 224.0.0.251.5353: 0*- [0q] 1/0/9 PTR 5A45AABFC93B@Living Room._raop._tcp.local. (483)
+
+14:37:07.616722 IP 192.168.4.24.5353 > 224.0.0.251.5353: 0*- [0q] 1/0/9 PTR CA821496AD33@Living Room (2)._raop._tcp.local. (490)
+14:37:07.618485 IP 192.168.4.24.5353 > 224.0.0.251.5353: 0*- [0q] 1/0/9 PTR CA821496AD33@Living Room (2)._raop._tcp.local. (490)
+
+14:37:07.616723 IP 192.168.5.212.5353 > 224.0.0.251.5353: 0*- [0q] 1/0/8 PTR CE1D138906B4@Bedroom._raop._tcp.local. (440)
+14:37:07.618485 IP 192.168.5.212.5353 > 224.0.0.251.5353: 0*- [0q] 1/0/8 PTR CE1D138906B4@Bedroom._raop._tcp.local. (440)
+
+
+
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on eth5, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+15:15:06.833820 IP 192.168.6.9.5353 > 224.0.0.251.5353: 0*- [0q] 8/0/0 PTR 9C783EB55E41@Legacy PiPod._raop._tcp.local., (Cache flush) TXT "sf=0x4" "fv=5.0-dev-143-gb5f1157c" "am=ShairportSync" "vs=105.1" "tp=TCP,UDP" "vn=65537" "md=0,1,2" "ss=16" "sr=44100" "da=true" "sv=false" "et=0,1" "ek=1" "cn=0,1" "ch=2" "txtvers=1" "pw=false", (Cache flush) SRV raspberrypi.local.:5000 0 0, (Cache flush) A 192.168.6.9, PTR _hap._tcp.local., PTR _airplay._tcp.local., PTR _raop._tcp.local., PTR _workstation._tcp.local. (396)
+15:15:06.834848 IP 192.168.6.9.5353 > 224.0.0.251.5353: 0*- [0q] 8/0/0 PTR 9C783EB55E41@Legacy PiPod._raop._tcp.local., (Cache flush) TXT "sf=0x4" "fv=5.0-dev-143-gb5f1157c" "am=ShairportSync" "vs=105.1" "tp=TCP,UDP" "vn=65537" "md=0,1,2" "ss=16" "sr=44100" "da=true" "sv=false" "et=0,1" "ek=1" "cn=0,1" "ch=2" "txtvers=1" "pw=false", (Cache flush) SRV raspberrypi.local.:5000 0 0, (Cache flush) A 192.168.6.9, PTR _hap._tcp.local., PTR _airplay._tcp.local., PTR _raop._tcp.local., PTR _workstation._tcp.local. (396)
+
+30 packets captured
+30 packets received by filter
+0 packets dropped by kernel

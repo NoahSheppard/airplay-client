@@ -1,0 +1,276 @@
+[test_discovery.cpp] Scanning for AirPlay devices
+[discovery.cpp] query sent, listening...
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.4.1 rtype=12
+[discovery.cpp] (PTR) raw instance='_eerogw._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_eerogw._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.4.1 rtype=12
+[discovery.cpp] (PTR) raw instance='_meshcop._udp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_meshcop._udp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.4.1 rtype=12
+[discovery.cpp] (PTR) raw instance='_trel._udp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_trel._udp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.4.1 rtype=12
+[discovery.cpp] (PTR) raw instance='_eerogw._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_eerogw._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.4.1 rtype=12
+[discovery.cpp] (PTR) raw instance='_meshcop._udp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_meshcop._udp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.4.1 rtype=12
+[discovery.cpp] (PTR) raw instance='_trel._udp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_trel._udp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=16 entry=3
+[callback] from=192.168.4.30 rtype=16
+[discovery.cpp] (TXT) record_name='5A45AABFC93B@Living Room._raop._tcp.local.'
+[callback] fired rtype=33 entry=3
+[callback] from=192.168.4.30 rtype=33
+[callback] fired rtype=28 entry=3
+[callback] from=192.168.4.30 rtype=28
+[callback] fired rtype=28 entry=3
+[callback] from=192.168.4.30 rtype=28
+[callback] fired rtype=28 entry=3
+[callback] from=192.168.4.30 rtype=28
+[callback] fired rtype=1 entry=3
+[callback] from=192.168.4.30 rtype=1
+[discovery.cpp] (A) record_name='Living-Room.local.'
+[callback] fired rtype=28 entry=3
+[callback] from=192.168.4.30 rtype=28
+[callback] fired rtype=47 entry=3
+[callback] from=192.168.4.30 rtype=47
+[callback] fired rtype=47 entry=3
+[callback] from=192.168.4.30 rtype=47
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_hap._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_hap._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_airplay._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_airplay._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_raop._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_raop._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=0
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_workstation._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_workstation._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=16 entry=3
+[callback] from=192.168.5.60 rtype=16
+[discovery.cpp] (TXT) record_name='E202AF9DEA06@Michael’s Mac mini._raop._tcp.local.'
+[callback] fired rtype=33 entry=3
+[callback] from=192.168.5.60 rtype=33
+[callback] fired rtype=28 entry=3
+[callback] from=192.168.5.60 rtype=28
+[callback] fired rtype=1 entry=3
+[callback] from=192.168.5.60 rtype=1
+[discovery.cpp] (A) record_name='Michaels-Mac-mini.local.'
+[callback] fired rtype=28 entry=3
+[callback] from=192.168.5.60 rtype=28
+[callback] fired rtype=28 entry=3
+[callback] from=192.168.5.60 rtype=28
+[callback] fired rtype=47 entry=3
+[callback] from=192.168.5.60 rtype=47
+[callback] fired rtype=47 entry=3
+[callback] from=192.168.5.60 rtype=47
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_hap._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_hap._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_airplay._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_airplay._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_raop._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_raop._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=0
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_workstation._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_workstation._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.5.179 rtype=12
+[discovery.cpp] (PTR) raw instance='_spotify-connect._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_spotify-connect._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=41 entry=3
+[callback] from=192.168.5.179 rtype=41
+[callback] fired rtype=16 entry=3
+[callback] from=192.168.5.60 rtype=16
+[discovery.cpp] (TXT) record_name='E202AF9DEA06@Michael’s Mac mini._raop._tcp.local.'
+[callback] fired rtype=33 entry=3
+[callback] from=192.168.5.60 rtype=33
+[callback] fired rtype=28 entry=3
+[callback] from=192.168.5.60 rtype=28
+[callback] fired rtype=1 entry=3
+[callback] from=192.168.5.60 rtype=1
+[discovery.cpp] (A) record_name='Michaels-Mac-mini.local.'
+[callback] fired rtype=28 entry=3
+[callback] from=192.168.5.60 rtype=28
+[callback] fired rtype=28 entry=3
+[callback] from=192.168.5.60 rtype=28
+[callback] fired rtype=47 entry=3
+[callback] from=192.168.5.60 rtype=47
+[callback] fired rtype=47 entry=3
+[callback] from=192.168.5.60 rtype=47
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.4.1 rtype=12
+[discovery.cpp] (PTR) raw instance='_eerogw._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_eerogw._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.4.1 rtype=12
+[discovery.cpp] (PTR) raw instance='_meshcop._udp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_meshcop._udp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.4.1 rtype=12
+[discovery.cpp] (PTR) raw instance='_trel._udp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_trel._udp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_hap._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_hap._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_airplay._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_airplay._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_raop._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_raop._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=0
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_workstation._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_workstation._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_hap._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_hap._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_airplay._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_airplay._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_raop._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_raop._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=0
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.6.9 rtype=12
+[discovery.cpp] (PTR) raw instance='_workstation._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_workstation._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.5.41 rtype=12
+[discovery.cpp] (PTR) raw instance='_dyson_mqtt._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_dyson_mqtt._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=47 entry=3
+[callback] from=192.168.5.41 rtype=47
+[callback] fired rtype=12 entry=1
+[callback] from=192.168.5.41 rtype=12
+[discovery.cpp] (PTR) raw instance='_dyson_mqtt._tcp.local.', but record_name='_services._dns-sd._udp.local.'. Length of instance=32, length of record_name=32
+[discovery.cpp] (PTR) raw ptr='_dyson_mqtt._tcp.local.'
+[discovery.cpp] (PTR) at=18446744073709551615
+[discovery.cpp] (PTR) raop=18446744073709551615
+[discovery.cpp] (PTR) skipping (no @ or _raop._tcp)
+[callback] fired rtype=47 entry=3
+[callback] from=192.168.5.41 rtype=47
+[discovery.cpp] Raw device map:
+  key='5A45AABFC93B@Living Room._raop._tcp.local.' ip'192.168.4.30' port=7000 name='Living Room'
+  key='E202AF9DEA06@Michael’s Mac mini._raop._tcp.local.' ip'192.168.5.60' port=7000 name='Michael’s Mac mini'
+
+[test_discovery.cpp]Found: Living Room
+[test_discovery.cpp]  IP:         192.168.4.30
+[test_discovery.cpp]  Port:       7000
+[test_discovery.cpp]  MAC:        5A45AABFC93B
+[test_discovery.cpp]  Password:   no
+
+[test_discovery.cpp]Found: Michael’s Mac mini
+[test_discovery.cpp]  IP:         192.168.5.60
+[test_discovery.cpp]  Port:       7000
+[test_discovery.cpp]  MAC:        E202AF9DEA06
+[test_discovery.cpp]  Password:   no
+noah@DESKTOP-V53IKAB:~/airplay-client/build$ 
